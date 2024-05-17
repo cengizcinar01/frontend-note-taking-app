@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-/* const url = "https://rest-and-expressjs-alpakas.onrender.com"; */
-const localUrl = "https://t0k4ccc.49.13.140.43.sslip.io";
+const url = "https://t0k4ccc.49.13.140.43.sslip.io";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -12,7 +11,7 @@ function App() {
   useEffect(() => {
     getNotes();
     async function getNotes() {
-      const res = await fetch(`${localUrl}/${user}`);
+      const res = await fetch(`${url}/${user}`);
       const data = await res.json();
       if ("message" in data) {
         setMessage(data.message);
@@ -28,7 +27,7 @@ function App() {
     event.preventDefault();
     const contentValue = event.target.content.value;
 
-    const res = await fetch(`${localUrl}/${user}`, {
+    const res = await fetch(`${url}/${user}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +43,7 @@ function App() {
     event.preventDefault();
     const editContentValue = event.target.editContent.value;
 
-    const res = await fetch(`${localUrl}/${user}/${id}`, {
+    const res = await fetch(`${url}/${user}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +56,7 @@ function App() {
   }
 
   async function handleDelete(id) {
-    const res = await fetch(`${localUrl}/${user}/${id}`, {
+    const res = await fetch(`${url}/${user}/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
