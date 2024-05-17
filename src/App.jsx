@@ -36,6 +36,11 @@ function App() {
     });
     event.target.reset();
     const data = await res.json();
+
+    if ("noteId" in data) {
+      setNotes([...notes, { id: data.noteId, content: contentValue }]);
+    }
+
     setMessage("message" in data ? data.message : "");
   }
 
@@ -53,6 +58,14 @@ function App() {
     event.target.reset();
     const data = await res.json();
     setMessage("message" in data ? data.message : "");
+
+    const updatedNotes = notes.map((note) => {
+      if (note.id === id) {
+        return { ...note, content: editContentValue };
+      }
+      return note;
+    });
+    setNotes(updatedNotes);
   }
 
   async function handleDelete(id) {
